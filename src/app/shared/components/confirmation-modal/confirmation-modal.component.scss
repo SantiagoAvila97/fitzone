@@ -1,0 +1,32 @@
+@use "variables" as *;
+
+.modal-container {
+  padding: 20px;
+
+  &.success {
+    .modal-title {
+      color: $success-color;
+    }
+  }
+
+  &.error {
+    .modal-title {
+      color: $error-color;
+    }
+  }
+
+  &.default {
+    .modal-title {
+      color: $primary-color;
+    }
+  }
+}
+
+.modal-actions {
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.button-cancel {
+  color: $tertiary-color;
+}

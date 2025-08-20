@@ -44,33 +44,40 @@ export class HomeComponent implements OnInit {
   // Signals
   classes = signal<Site[]>([]);
   selectedNames = signal<string[]>([]);
+  selectedSites = signal<string[]>([]);
 
   /** Inicilizador */
   ngOnInit() {
     this.classes.set(this.classService.getClasses());
   }
+
   /** Filtrar clases */
   filteredClasses = computed(() => {
-    const names = this.selectedNames();
+    const names = this.selectedNames(); // filtro por clase
+    const sites = this.selectedSites(); // filtro por sede
     const reserved = this.reservationService.reservations(); // clases ya reservadas
     const isAuth = this.authService.isAuthenticated(); // booleano
 
     return this.classes().map((site) => ({
       ...site,
       classes: site.classes.filter((c) => {
-        const matchesFilter = names.length === 0 || names.includes(c.name);
+        /** Filtro por nombre de clase */
+        const matchesName = names.length === 0 || names.includes(c.name);
 
-        // si no está autenticado, no revisa reservas
+        /** Filtro por sede */
+        const matchesSite = sites.length === 0 || sites.includes(site.name);
+
+        /** Si no está autenticado, no valida reservas */
         if (!isAuth) {
-          return matchesFilter;
+          return matchesName && matchesSite;
         }
 
-        // si está autenticado, también valida reservas
+        /** Si está autenticado, también valida reservas */
         const notReserved = !reserved.some(
           (r) => r.id === c.id && r.location === site.name,
         );
 
-        return matchesFilter && notReserved;
+        return matchesName && matchesSite && notReserved;
       }),
     }));
   });
@@ -107,5 +114,20 @@ export class HomeComponent implements OnInit {
       site.classes.map((c) => c.name),
     );
     return [...new Set(names)];
+  }
+  /** Obtener todas las sedes */
+  getAllSites(): string[] {
+    const sites = this.classes().map((site) => site.name);
+    return [...new Set(sites)];
+  }
+
+  /** Obtener turnos de horarios (mañana / tarde) */
+  getAllShifts(): string[] {
+    const shifts = this.classes().flatMap((site) =>
+      site.classes.map((c) =>
+        c.schedule.toLowerCase().includes('am') ? 'mañana' : 'tarde',
+      ),
+    );
+    return [...new Set(shifts)];
   }
 }
