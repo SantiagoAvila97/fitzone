@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -23,6 +24,7 @@ import { AuthService } from './services/auth.service';
 export class AuthComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   // Signals de estado
   loading = signal(false);
@@ -48,6 +50,7 @@ export class AuthComponent {
       next: () => {
         this.loading.set(false);
         alert('Login exitoso 🚀');
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         this.loading.set(false);
