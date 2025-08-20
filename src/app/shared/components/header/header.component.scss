@@ -1,0 +1,78 @@
+@use "@shared/styles/_media.scss" as *;
+@use "@shared/styles/_colors.scss" as *;
+@use "@shared/styles/_sizetexts.scss" as *;
+
+mat-toolbar {
+  background-color: $color-primary;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 3rem;
+
+  @include for-phone {
+    padding-inline: 1rem;
+  }
+
+  .logo {
+    font-weight: 500;
+    font-size: $font-20;
+    color: $color-white;
+    cursor: pointer;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .desktop-menu {
+    display: flex;
+    gap: 1rem;
+
+    @include for-phone {
+      display: none;
+    }
+
+    a {
+      color: $color-white;
+      font-weight: 400;
+    }
+  }
+
+  .menu-button {
+    display: none;
+
+    @include for-phone {
+      display: inline-flex;
+      color: $color-white;
+      margin-right: 1rem;
+    }
+  }
+}
+
+.sidenav-container {
+  height: calc(100vh - 64px);
+}
+
+.mobile-menu {
+  width: 250px;
+
+  @include for-phone {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  a,
+  button {
+    width: 100%;
+    text-align: left;
+    color: $color-white;
+    display: block;
+
+    @include for-phone {
+      color: $color-black;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+    }
+  }
+}

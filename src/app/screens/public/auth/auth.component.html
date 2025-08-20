@@ -1,22 +1,39 @@
 <div class="auth-container">
-  <div class="auth-left">
-    <div class="image-stack">
-      <img src="branch.png" alt="branch" />
-    </div>
-  </div>
-
   <div class="auth-right">
-    <h1 class="logo">FitZone</h1>
+    <div class="auth-left">
+      <div class="image-stack">
+        <img src="branch.png" alt="branch" />
+      </div>
+      <h1 class="logo">Bienvenido a Fitzone</h1>
+    </div>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form">
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Usuario</mat-label>
-        <input matInput formControlName="username" />
+        <input matInput formControlName="username" maxlength="10" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Contraseña</mat-label>
-        <input matInput type="password" formControlName="password" />
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          formControlName="password"
+          maxlength="30"
+        />
+
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword.set(!hidePassword())"
+          [attr.aria-label]="'Mostrar u ocultar contraseña'"
+          [attr.aria-pressed]="!hidePassword()"
+        >
+          <mat-icon>{{
+            hidePassword() ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
       </mat-form-field>
 
       @if (error()) {
@@ -29,7 +46,17 @@
         class="btn-login"
         [disabled]="loading()"
       >
-        {{ loading() ? "Ingresando..." : "Entrar" }}
+        @if (loading()) {
+          <mat-progress-spinner
+            mode="indeterminate"
+            diameter="20"
+            class="spinner"
+          ></mat-progress-spinner>
+        }
+
+        @if (!loading()) {
+          Entrar
+        }
       </button>
     </form>
   </div>

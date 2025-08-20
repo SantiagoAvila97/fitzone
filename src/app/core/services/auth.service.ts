@@ -15,8 +15,6 @@ export class AuthService {
 
   /**
    * Método para iniciar sesión
-   * @param username usuario ingresado
-   * @param password contraseña ingresada
    */
   login(username: string, password: string): Observable<{ username: string }> {
     if (
@@ -29,12 +27,16 @@ export class AuthService {
     return throwError(() => new Error('Credenciales inválidas'));
   }
 
-  /** Método para cerrar sesión */
+  /**
+   * Método para cerrar sesión
+   */
   logout() {
     this.currentUser.set(null);
   }
 
-  /** Retorna si el usuario está autenticado */
+  /**
+   * Retorna si el usuario está autenticado
+   */
   isAuthenticated(): boolean {
     return this.currentUser() !== null;
   }

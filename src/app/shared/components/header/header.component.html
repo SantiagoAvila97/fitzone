@@ -1,13 +1,43 @@
-<mat-toolbar color="primary">
-  <span>FitZone</span>
+<mat-toolbar>
+  <button
+    mat-icon-button
+    (click)="sidenav.toggle()"
+    class="menu-button"
+    aria-label="Menú"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="logo" routerLink="/home">FitZone</span>
   <span class="spacer"></span>
 
-  <a mat-button routerLink="/">Inicio</a>
-  <a mat-button routerLink="/reservas">Mis Reservas</a>
+  <nav class="desktop-menu">
+    <a mat-button routerLink="/home">Inicio</a>
+    <a mat-button routerLink="/reservations">Mis Reservas</a>
 
-  @if (authService.currentUser()) {
-    <button mat-button (click)="logout()">Salir</button>
-  } @else {
-    <a mat-button routerLink="/login">Login</a>
-  }
+    <ng-container *ngIf="authService.currentUser(); else loginLink">
+      <button mat-button (click)="logout()">Salir</button>
+    </ng-container>
+
+    <ng-template #loginLink>
+      <a mat-button routerLink="/login">Login</a>
+    </ng-template>
+  </nav>
 </mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over" class="mobile-menu">
+    <a mat-list-item routerLink="/home" (click)="sidenav.close()">Inicio</a>
+    <a mat-list-item routerLink="/reservations" (click)="sidenav.close()"
+      >Mis Reservas</a
+    >
+
+    <ng-container *ngIf="authService.currentUser(); else mobileLoginLink">
+      <button mat-list-item (click)="logout(); sidenav.close()">Salir</button>
+    </ng-container>
+
+    <ng-template #mobileLoginLink>
+      <a mat-list-item routerLink="/login" (click)="sidenav.close()">Login</a>
+    </ng-template>
+  </mat-sidenav>
+</mat-sidenav-container>
