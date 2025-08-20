@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <span>FitZone</span>
+  <span class="spacer"></span>
+
+  <a mat-button routerLink="/">Inicio</a>
+  <a mat-button routerLink="/reservas">Mis Reservas</a>
+
+  @if (authService.currentUser()) {
+    <button mat-button (click)="logout()">Salir</button>
+  } @else {
+    <a mat-button routerLink="/login">Login</a>
+  }
+</mat-toolbar>

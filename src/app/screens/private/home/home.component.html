@@ -1,0 +1,54 @@
+<app-header />
+
+<div class="home-container">
+  <!-- Banner de notificaciones -->
+  @for (n of notifications(); track n.id) {
+    <div class="notification-banner">
+      <mat-icon color="warn">campaign</mat-icon>
+      <span>{{ n.message }}</span>
+    </div>
+  }
+
+  <h2 class="section-title">Explora nuestras clases</h2>
+  <div class="classes-grid">
+    @for (c of classes(); track c.id) {
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ c.name }}</mat-card-title>
+          <mat-card-subtitle>{{ c.schedule }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="c.image" alt="{{ c.name }}" />
+        <mat-card-content>
+          <p>{{ c.location }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="reservarClase(c)">
+            Reservar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+
+  <h2 class="section-title">Membresías y Pagos</h2>
+  <div class="payments">
+    <mat-card>
+      <mat-card-title>Membresía mensual</mat-card-title>
+      <mat-card-content>
+        <p>$100.000 COP</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button color="accent">Pagar</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>Clase individual</mat-card-title>
+      <mat-card-content>
+        <p>$20.000 COP</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button color="accent">Comprar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

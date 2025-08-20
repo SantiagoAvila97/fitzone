@@ -1,0 +1,51 @@
+@use "@shared/styles/_media.scss" as *;
+@use "@shared/styles/_colors.scss" as *;
+
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  @include for-phone {
+    padding: 1rem;
+  }
+}
+
+.notification-banner {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin: 2rem 0 1rem;
+}
+
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.payments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  @include for-phone {
+    flex-direction: column;
+  }
+
+  mat-card {
+    flex: 1;
+    min-width: 240px;
+
+    img {
+      max-width: 100px;
+    }
+  }
+}
