@@ -1,0 +1,134 @@
+@use "@shared/styles/_media.scss" as *;
+@use "@shared/styles/_colors.scss" as *;
+@use "@shared/styles/_sizetexts.scss" as *;
+
+h2 {
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 0rem;
+  font-weight: 500;
+  padding-left: 30px;
+}
+
+.memberships-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1080px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.membership-card {
+  border-radius: 1rem;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.01);
+    background: rgba($color-primary, 0.5);
+
+    p,
+    mat-card-title,
+    mat-card-subtitle {
+      color: $color-white;
+    }
+  }
+
+  mat-card-title {
+    font-size: $font-22;
+    font-weight: 500;
+    color: $color-primary;
+
+    @include for-tablet {
+      font-size: $font-22 * $font-reduce-10;
+    }
+
+    @include for-phone {
+      font-size: $font-22 * $font-reduce-20;
+    }
+  }
+
+  p {
+    font-size: $font-14;
+
+    @include for-tablet {
+      font-size: $font-14 * $font-reduce-10;
+    }
+
+    @include for-phone {
+      font-size: $font-14 * $font-reduce-20;
+    }
+  }
+
+  .price {
+    font-size: $font-22;
+    font-weight: 500;
+    margin-top: 0.5rem;
+
+    @include for-tablet {
+      font-size: $font-22 * $font-reduce-10;
+    }
+
+    @include for-phone {
+      font-size: $font-22 * $font-reduce-20;
+    }
+  }
+
+  button {
+    margin-block: 0.5 rem;
+  }
+}
+
+.plan {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.not-included {
+  color: #999;
+  text-decoration: line-through;
+}
+
+ul {
+  padding-left: 1rem;
+  padding-right: 2rem;
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: $font-14;
+
+    @include for-tablet {
+      font-size: $font-14 * $font-reduce-10;
+    }
+
+    @include for-phone {
+      font-size: $font-14 * $font-reduce-20;
+    }
+
+    .icon-included {
+      color: $color-success;
+    }
+
+    .icon-excluded {
+      color: $color-error;
+    }
+
+    &.disabled {
+      span {
+        color: #999;
+        text-decoration: line-through;
+      }
+    }
+  }
+}
+
+mat-icon {
+  font-size: 18px;
+}
