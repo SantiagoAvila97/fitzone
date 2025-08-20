@@ -2,13 +2,32 @@
 
 <div class="home-container">
   <h2 class="section-title">Explora nuestras clases</h2>
+
+  <div class="filter">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Filtrar por clases</mat-label>
+      <mat-select
+        multiple
+        [value]="selectedNames()"
+        (valueChange)="selectedNames.set($event)"
+      >
+        <mat-option *ngFor="let name of getAllClassNames()" [value]="name">
+          {{ name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div class="classes-grid">
-    @for (branch of classes(); track branch.name) {
+    @for (branch of filteredClasses(); track branch.name) {
       <mat-card>
         <mat-card-header>
           <mat-card-title>{{ branch.name }}</mat-card-title>
           <mat-card-subtitle>
-            Ubicación: {{ branch.lat }}, {{ branch.lng }}
+            Ubicación: {{ branch.address }}
+          </mat-card-subtitle>
+          <mat-card-subtitle>
+            Horario: {{ branch.schedule }}
           </mat-card-subtitle>
         </mat-card-header>
 

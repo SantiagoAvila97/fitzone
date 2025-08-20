@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AuthService } from '@core//services/auth.service';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +25,10 @@ import { AuthService } from '@core//services/auth.service';
     MatButtonModule,
     MatIconModule,
     HeaderComponent,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -37,11 +43,23 @@ export class HomeComponent implements OnInit {
 
   // Signals
   classes = signal<Site[]>([]);
+  selectedNames = signal<string[]>([]);
 
   /** Inicilizador */
   ngOnInit() {
     this.classes.set(this.classService.getClasses());
   }
+
+  /** Filtrar clases */
+  filteredClasses = computed(() => {
+    const names = this.selectedNames();
+    if (names.length === 0) return this.classes(); // si no hay filtro, devuelve todo
+
+    return this.classes().map((site) => ({
+      ...site,
+      classes: site.classes.filter((c) => names.includes(c.name)),
+    }));
+  });
 
   /** Maneja la reserva de una nueva clase */
   reserveClass(site: Site, information: Class) {
@@ -65,5 +83,13 @@ export class HomeComponent implements OnInit {
   getMapUrl(lat: number, lng: number): SafeResourceUrl {
     const url = `https://www.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  /** Obtener nombres únicos de todas las clases */
+  getAllClassNames(): string[] {
+    const names = this.classes().flatMap((site) =>
+      site.classes.map((c) => c.name),
+    );
+    return [...new Set(names)];
   }
 }

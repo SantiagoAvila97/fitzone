@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 export interface Site {
   name: string;
+  address: string;
+  schedule: string;
   lat: number;
   lng: number;
   classes: Class[];
@@ -17,7 +19,9 @@ export interface Class {
 export class ClassService {
   private classes: Site[] = [
     {
-      name: 'Sede Norte',
+      name: 'Sede Pepe Sierra',
+      address: 'Calle 116 # 19 - 41',
+      schedule: '5h - 22h',
       lat: 4.711,
       lng: -74.0667,
       classes: [
@@ -59,7 +63,9 @@ export class ClassService {
       ],
     },
     {
-      name: 'Sede Centro',
+      name: 'Sede Fontibón',
+      address: 'Calle 17 # 112 - 58',
+      schedule: '6h - 21h',
       lat: 4.6097,
       lng: -74.0817,
       classes: [
@@ -86,7 +92,9 @@ export class ClassService {
       ],
     },
     {
-      name: 'Sede Sur',
+      name: 'Sede Bacata',
+      address: 'Calle 19 # 5 - 30',
+      schedule: '7h - 20h',
       lat: 4.5793,
       lng: -74.1469,
       classes: [

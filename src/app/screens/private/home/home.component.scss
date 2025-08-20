@@ -10,6 +10,14 @@
   @include for-phone {
     padding: 1rem;
   }
+
+  h2 {
+    font-weight: 500;
+  }
+
+  .w-full {
+    width: 100%;
+  }
 }
 
 .section-title {
@@ -24,6 +32,22 @@
 }
 
 .mat-mdc-card-content {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+
+  p {
+    margin: 0;
+    font-size: $font-14;
+
+    @include for-tablet {
+      font-size: $font-14 * $font-reduce-10;
+    }
+
+    @include for-phone {
+      font-size: $font-14 * $font-reduce-20;
+    }
+  }
+
   ul {
     padding-left: 1rem;
 
@@ -31,6 +55,16 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+
+      font-size: $font-14;
+
+      @include for-tablet {
+        font-size: $font-14 * $font-reduce-10;
+      }
+
+      @include for-phone {
+        font-size: $font-14 * $font-reduce-20;
+      }
 
       &:hover {
         scale: 1.01;
@@ -48,9 +82,40 @@
 
         p {
           font-weight: 500;
+          margin: 0rem;
           margin-right: 0.5rem;
         }
       }
+    }
+  }
+}
+
+mat-card-header {
+  margin-bottom: 1.5rem;
+
+  mat-card-title {
+    color: $color-primary;
+    font-weight: 500;
+
+    font-size: $font-20;
+
+    @include for-tablet {
+      font-size: $font-20 * $font-reduce-10;
+    }
+
+    @include for-phone {
+      font-size: $font-20 * $font-reduce-20;
+    }
+  }
+  mat-card-subtitle {
+    font-size: $font-14;
+
+    @include for-tablet {
+      font-size: $font-14 * $font-reduce-10;
+    }
+
+    @include for-phone {
+      font-size: $font-14 * $font-reduce-20;
     }
   }
 }
