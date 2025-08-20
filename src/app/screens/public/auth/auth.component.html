@@ -1,16 +1,10 @@
 <div class="auth-container">
-  <!-- <div class="auth-left">
-    <div class="image-stack">
-      <img src="branch.png" alt="branch" />
-    </div>
-  </div> -->
-
   <div class="auth-right">
     <div class="auth-left">
       <div class="image-stack">
         <img src="branch.png" alt="branch" />
       </div>
-      <h1 class="logo">Bienvenido a FitZone</h1>
+      <h1 class="logo">Bienvenido a Fitzone</h1>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form">
@@ -18,11 +12,6 @@
         <mat-label>Usuario</mat-label>
         <input matInput formControlName="username" maxlength="10" />
       </mat-form-field>
-
-      <!-- <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Contraseña</mat-label>
-        <input matInput type="password" formControlName="password" />
-      </mat-form-field> -->
 
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Contraseña</mat-label>
