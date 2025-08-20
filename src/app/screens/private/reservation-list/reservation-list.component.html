@@ -1,0 +1,19 @@
+<div class="reservations-container">
+  <h2>Mis Reservas</h2>
+
+  @if (reservationService.reservations().length === 0) {
+    <p>No tienes reservas aún</p>
+  } @else {
+    @for (r of reservationService.reservations(); track r.id) {
+      <mat-card>
+        <mat-card-title>{{ r.name }}</mat-card-title>
+        <mat-card-subtitle>{{ r.date }} - {{ r.location }}</mat-card-subtitle>
+        <mat-card-actions>
+          <button mat-stroked-button color="warn" (click)="cancel(r.id)">
+            Cancelar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  }
+</div>
