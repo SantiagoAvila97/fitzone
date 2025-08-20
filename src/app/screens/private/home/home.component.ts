@@ -8,6 +8,7 @@ import { ClassService } from '../../../core/services/class.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '@shared/components/header/header.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
   private notificationService = inject(NotificationService);
   private reservationService = inject(ReservationService);
   private router = inject(Router);
+  private sanitizer = inject(DomSanitizer);
 
   // Signals que contienen estado
   classes = signal<any[]>([]);
@@ -47,5 +49,10 @@ export class HomeComponent implements OnInit {
 
     alert(`Clase ${c.name} reservada ✅`);
     this.router.navigate(['/reservations']);
+  }
+
+  getMapUrl(lat: number, lng: number): SafeResourceUrl {
+    const url = `https://www.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
