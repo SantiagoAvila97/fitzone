@@ -8,7 +8,7 @@
     <mat-icon>menu</mat-icon>
   </button>
 
-  <span class="logo" routerLink="/home"
+  <span class="logo" routerLink="/"
     >Fitzone
     @if (isAuthenticated()) {
       <span class="username"> - Hola, {{ username }}!</span>
@@ -17,28 +17,26 @@
   <span class="spacer"></span>
 
   <nav class="desktop-menu">
-    <button mat-button routerLink="/home">Inicio</button>
+    <button mat-button routerLink="/">Inicio</button>
 
     @if (isAuthenticated()) {
       <button mat-button routerLink="/reservations">Mis Reservas</button>
-      <button mat-button (click)="logout()">Salir</button>
+      <button mat-button (click)="logout()">Cerrar sesión</button>
     } @else {
-      <button mat-button routerLink="/login">Login</button>
+      <button mat-button routerLink="/login">Iniciar sesión</button>
     }
   </nav>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="over" class="mobile-menu">
-    <button mat-button routerLink="/home" (click)="sidenav.close()">
-      Inicio
-    </button>
+    <button mat-button routerLink="/" (click)="sidenav.close()">Inicio</button>
 
     @if (isAuthenticated()) {
       <button mat-button routerLink="/reservations">Mis Reservas</button>
-      <button mat-button (click)="logout()">Salir</button>
+      <button mat-button (click)="logout()">Cerrar sesión</button>
     } @else {
-      <button mat-button routerLink="/login">Login</button>
+      <button mat-button routerLink="/login">Iniciar sesión</button>
     }
   </mat-sidenav>
 </mat-sidenav-container>

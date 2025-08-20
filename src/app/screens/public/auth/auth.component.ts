@@ -9,6 +9,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { HeaderComponent } from '@shared/components/header/header.component';
 
 @Component({
   selector: 'app-auth',
@@ -21,6 +22,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatIcon,
     MatProgressSpinner,
+    HeaderComponent,
+    HeaderComponent,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',

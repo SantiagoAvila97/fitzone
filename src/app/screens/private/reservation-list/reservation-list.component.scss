@@ -1,3 +1,7 @@
+@use "@shared/styles/_media.scss" as *;
+@use "@shared/styles/_colors.scss" as *;
+@use "@shared/styles/_sizetexts.scss" as *;
+
 .reservations-container {
   max-width: 800px;
   margin: 2rem auto;
@@ -8,9 +12,39 @@
 
   h2 {
     margin-bottom: 1rem;
+    font-weight: 500;
   }
 
   mat-card {
-    padding: 1rem;
+    padding: 1.5rem;
+  }
+
+  mat-card-actions {
+    gap: 1rem;
+  }
+
+  mat-card-title {
+    font-size: $font-20;
+
+    @include for-tablet {
+      font-size: $font-20 * $font-reduce-10;
+    }
+
+    @include for-phone {
+      font-size: $font-20 * $font-reduce-20;
+    }
+  }
+
+  mat-card-subtitle {
+    font-weight: 300;
+    font-size: $font-14;
+
+    @include for-tablet {
+      font-size: $font-14 * $font-reduce-10;
+    }
+
+    @include for-phone {
+      font-size: $font-14 * $font-reduce-20;
+    }
   }
 }

@@ -49,15 +49,29 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.classes.set(this.classService.getClasses());
   }
-
   /** Filtrar clases */
   filteredClasses = computed(() => {
     const names = this.selectedNames();
-    if (names.length === 0) return this.classes(); // si no hay filtro, devuelve todo
+    const reserved = this.reservationService.reservations(); // clases ya reservadas
+    const isAuth = this.authService.isAuthenticated(); // booleano
 
     return this.classes().map((site) => ({
       ...site,
-      classes: site.classes.filter((c) => names.includes(c.name)),
+      classes: site.classes.filter((c) => {
+        const matchesFilter = names.length === 0 || names.includes(c.name);
+
+        // si no está autenticado, no revisa reservas
+        if (!isAuth) {
+          return matchesFilter;
+        }
+
+        // si está autenticado, también valida reservas
+        const notReserved = !reserved.some(
+          (r) => r.id === c.id && r.location === site.name,
+        );
+
+        return matchesFilter && notReserved;
+      }),
     }));
   });
 
@@ -68,6 +82,8 @@ export class HomeComponent implements OnInit {
       name: information.name,
       date: information.schedule,
       location: site.name,
+      address: site.address,
+      mapUrl: `https://www.google.com/maps?q=${site.lat},${site.lng}&hl=es;z=14&output=embed`,
     });
 
     if (!this.authService.isAuthenticated()) {

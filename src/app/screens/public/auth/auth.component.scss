@@ -6,10 +6,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   margin: 0 auto;
   gap: 2rem;
-  background: $color-primary;
+  height: 80vh;
 
   @include for-phone {
     flex-direction: column;
