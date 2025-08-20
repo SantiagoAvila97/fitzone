@@ -5,8 +5,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Subscription } from 'rxjs';
-import { AuthService } from './services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-auth',
@@ -17,20 +19,24 @@ import { Router } from '@angular/router';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIcon,
+    MatProgressSpinner,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent {
+  // Injects
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  // Signals de estado
+  // Signals
   loading = signal(false);
   error = signal<string | null>(null);
+  hidePassword = signal(true);
 
-  // Form reactivo
+  // Form reactive
   form = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
@@ -38,7 +44,9 @@ export class AuthComponent {
 
   private sub?: Subscription;
 
-  /** Se ejecuta al enviar el formulario */
+  /**
+   * Se ejecuta al enviar el formulario
+   */
   onSubmit() {
     if (this.form.invalid) return;
 
@@ -49,17 +57,19 @@ export class AuthComponent {
     this.sub = this.authService.login(username!, password!).subscribe({
       next: () => {
         this.loading.set(false);
-        alert('Login exitoso 🚀');
         this.router.navigate(['/home']);
       },
       error: (err) => {
         this.loading.set(false);
         this.error.set(err.message);
+        this.form.reset();
       },
     });
   }
 
-  /** NgOnDestroy: liberamos la subscripción */
+  /**
+   * NgOnDestroy: liberamos la subscripción
+   */
   ngOnDestroy() {
     this.sub?.unsubscribe();
   }

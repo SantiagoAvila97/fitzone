@@ -6,44 +6,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 800px;
   min-height: 100vh;
   margin: 0 auto;
   gap: 2rem;
+  background: $color-primary;
 
   @include for-phone {
     flex-direction: column;
-    padding: 1rem;
+    padding: 0rem;
     gap: 1rem;
   }
 
   @include for-tablet {
-    padding: 2rem;
-  }
-}
-
-.auth-left {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @include for-phone {
-    display: none;
-  }
-
-  .image-stack {
-    position: relative;
-
-    img {
-      border-radius: 1rem;
-      width: 320px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-
-      @include for-tablet {
-        width: 240px;
-      }
-    }
+    padding: 0rem;
   }
 }
 
@@ -53,25 +28,24 @@
   padding: 2rem 2.5rem;
   border-radius: 1rem;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  background: $color-white;
 
   @include for-phone {
-    max-width: 100%;
+    max-width: 80%;
     width: 100%;
     padding: 1.5rem;
-    box-shadow: 0 0 0 0;
-    border-radius: 0;
+    max-height: 300px;
     margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
   }
 
   .logo {
     font-size: $font-22;
     text-align: center;
     margin-bottom: 1rem;
-    margin-top: 0rem;
+    margin-top: 0.5rem;
     font-weight: 500;
   }
 
@@ -85,13 +59,29 @@
     }
 
     .btn-login {
-      margin-block: 0.5rem;
+      margin-block: 1rem;
+      display: flex;
     }
   }
 
   .error {
     color: $color-error;
     text-align: center;
-    margin-top: 1rem;
+    margin: 0rem;
+  }
+
+  .auth-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .image-stack {
+      img {
+        border-radius: 0.5rem;
+        width: 50px;
+      }
+    }
   }
 }
