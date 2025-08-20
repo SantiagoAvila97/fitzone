@@ -2,10 +2,12 @@
 import { Injectable, signal } from '@angular/core';
 
 export interface Reservation {
-  id: string; // id de la clase
-  name: string; // nombre de la clase
-  date: string; // fecha/hora de la reserva
-  location: string; // sede
+  id: string;
+  name: string;
+  date: string;
+  location: string;
+  mapUrl: string;
+  address: string;
 }
 
 @Injectable({ providedIn: 'root' })
