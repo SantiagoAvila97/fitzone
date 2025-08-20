@@ -8,7 +8,12 @@
     <mat-icon>menu</mat-icon>
   </button>
 
-  <span class="logo" routerLink="/home">FitZone</span>
+  <span class="logo" routerLink="/home"
+    >Fitzone
+    @if (isAuthenticated()) {
+      <span class="username"> - Hola, {{ username }}!</span>
+    }
+  </span>
   <span class="spacer"></span>
 
   <nav class="desktop-menu">

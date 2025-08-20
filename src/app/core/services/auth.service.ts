@@ -1,6 +1,10 @@
 // core/services/auth.service.ts
 import { Injectable, signal } from '@angular/core';
 import { Observable, of, throwError, delay } from 'rxjs';
+export interface UserSession {
+  username: string; // nombre de la clase
+  time: Date; // fecha/hora de la reserva
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -9,7 +13,7 @@ export class AuthService {
 
   // Usuario mockeado
   private readonly mockUser = {
-    username: 'fitzone',
+    username: 'Santiago Avila',
     password: 'pruebatecnisasantiagoavila',
   };
 
@@ -24,6 +28,7 @@ export class AuthService {
       this.currentUser.set({ username });
       return of({ username }).pipe(delay(1000)); // simulamos delay de API
     }
+
     return throwError(() => new Error('Credenciales inválidas'));
   }
 

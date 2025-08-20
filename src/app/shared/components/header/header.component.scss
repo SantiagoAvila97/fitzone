@@ -32,7 +32,8 @@ mat-toolbar {
       display: none;
     }
 
-    a {
+    a,
+    button {
       color: $color-white;
       font-weight: 400;
     }
@@ -50,11 +51,19 @@ mat-toolbar {
 }
 
 .sidenav-container {
-  height: calc(100vh - 64px);
+  position: relative;
 }
 
 .mobile-menu {
   width: 250px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
 
   @include for-phone {
     display: flex;

@@ -30,4 +30,12 @@ export class HeaderComponent {
     this.authService.logout();
     this.router.navigateByUrl('/');
   }
+
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+  get username(): string | null {
+    return this.authService.currentUser()?.username || null;
+  }
 }

@@ -5,17 +5,16 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./screens/public/auth/auth.component').then(
-        (m) => m.AuthComponent,
-      ),
-  },
-  {
-    path: 'home',
-    loadComponent: () =>
       import('./screens/private/home/home.component').then(
         (m) => m.HomeComponent,
       ),
-    canActivate: [authGuard],
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./screens/public/auth/auth.component').then(
+        (m) => m.AuthComponent,
+      ),
   },
   {
     path: 'reservations',

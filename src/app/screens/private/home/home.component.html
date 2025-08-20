@@ -21,15 +21,16 @@
         <mat-card-content>
           <p>{{ c.location }}</p>
 
-          <iframe
+          <!-- <iframe
             width="100%"
             height="250"
             style="border-radius: 1rem; border: 0"
             loading="lazy"
             allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
             [src]="getMapUrl(c.lat, c.lng)"
           >
-          </iframe>
+          </iframe> -->
         </mat-card-content>
         <mat-card-actions>
           <button mat-raised-button color="primary" (click)="reservarClase(c)">

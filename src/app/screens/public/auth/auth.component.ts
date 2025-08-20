@@ -57,7 +57,7 @@ export class AuthComponent {
     this.sub = this.authService.login(username!, password!).subscribe({
       next: () => {
         this.loading.set(false);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.loading.set(false);
