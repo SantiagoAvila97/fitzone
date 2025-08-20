@@ -4,11 +4,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ReservationService } from '../../../core/services/reservation.service';
-import { ClassService } from '../../../core/services/class.service';
-import { NotificationService } from '../../../core/services/notification.service';
+import {
+  Class,
+  ClassService,
+  Site,
+} from '../../../core/services/class.service';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { AuthService } from '@core//services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -24,33 +28,40 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  // Injects
+  private authService = inject(AuthService);
   private classService = inject(ClassService);
-  private notificationService = inject(NotificationService);
   private reservationService = inject(ReservationService);
   private router = inject(Router);
   private sanitizer = inject(DomSanitizer);
 
-  // Signals que contienen estado
-  classes = signal<any[]>([]);
-  notifications = signal<any[]>([]);
+  // Signals
+  classes = signal<Site[]>([]);
 
+  /** Inicilizador */
   ngOnInit() {
     this.classes.set(this.classService.getClasses());
-    this.notifications.set(this.notificationService.getNotifications());
   }
 
-  reservarClase(c: any) {
+  /** Maneja la reserva de una nueva clase */
+  reserveClass(site: Site, information: Class) {
     this.reservationService.addReservation({
-      id: c.id,
-      name: c.name,
-      date: c.schedule,
-      location: c.location,
+      id: information.id,
+      name: information.name,
+      date: information.schedule,
+      location: site.name,
     });
 
-    alert(`Clase ${c.name} reservada ✅`);
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    alert(`Clase ${information.name} reservada ✅`);
     this.router.navigate(['/reservations']);
   }
 
+  /** Sana la URL maps */
   getMapUrl(lat: number, lng: number): SafeResourceUrl {
     const url = `https://www.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);

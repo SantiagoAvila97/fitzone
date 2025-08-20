@@ -1,5 +1,6 @@
 @use "@shared/styles/_media.scss" as *;
 @use "@shared/styles/_colors.scss" as *;
+@use "@shared/styles/_sizetexts.scss" as *;
 
 .home-container {
   max-width: 1200px;
@@ -9,15 +10,6 @@
   @include for-phone {
     padding: 1rem;
   }
-}
-
-.notification-banner {
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .section-title {
@@ -31,21 +23,34 @@
   gap: 1.5rem;
 }
 
-.payments {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+.mat-mdc-card-content {
+  ul {
+    padding-left: 1rem;
 
-  @include for-phone {
-    flex-direction: column;
-  }
+    li {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
 
-  mat-card {
-    flex: 1;
-    min-width: 240px;
+      &:hover {
+        scale: 1.01;
 
-    img {
-      max-width: 100px;
+        color: $color-primary;
+
+        button {
+          color: $color-primary;
+        }
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+
+        p {
+          font-weight: 500;
+          margin-right: 0.5rem;
+        }
+      }
     }
   }
 }
