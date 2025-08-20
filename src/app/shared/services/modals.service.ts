@@ -1,11 +1,16 @@
 import { inject, Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationModalComponent } from '@shared/components/confirmation-modal/confirmation-modal.component';
-import { InformationModalComponent } from '@shared/components/information-modal/information-modal.component';
 
 export enum ModalType {
   DEFAULT = 'default',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
+
+export enum SnackbarType {
+  INFORMATION = 'information',
   SUCCESS = 'success',
   ERROR = 'error',
 }
@@ -15,22 +20,7 @@ export enum ModalType {
 })
 export class ModalsService {
   private dialog = inject(MatDialog);
-  private router = inject(Router);
-
-  // Abre un modal de informativo
-  openInformationModal(data: {
-    type: ModalType;
-    title: string;
-    body: string;
-  }): MatDialogRef<InformationModalComponent> {
-    return this.dialog.open(InformationModalComponent, {
-      data: {
-        type: data.type,
-        title: data.title,
-        body: data.body,
-      },
-    });
-  }
+  private snackBar = inject(MatSnackBar);
 
   // Abre un modal de confirmación
   openConfirmationModal(data: {
@@ -48,6 +38,27 @@ export class ModalsService {
         buttonLeft: data.buttonLeft,
         buttonRight: data.buttonRight,
       },
+    });
+  }
+
+  /** Snakcbar de información */
+  openSnackbar(data: SnackbarType, message: string) {
+    let simbol = '';
+
+    if (data === SnackbarType.INFORMATION) {
+      simbol = '⚠️';
+    }
+    if (data === SnackbarType.ERROR) {
+      simbol = '❌';
+    }
+    if (data === SnackbarType.SUCCESS) {
+      simbol = '✅';
+    }
+
+    this.snackBar.open(`${simbol} ${message}`, 'Cerrar', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
     });
   }
 }

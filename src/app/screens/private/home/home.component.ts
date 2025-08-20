@@ -16,6 +16,12 @@ import { AuthService } from '@core//services/auth.service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { FooterComponent } from '@shared/components/footer/footer.component';
+import {
+  ModalsService,
+  ModalType,
+  SnackbarType,
+} from '@shared/services/modals.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -42,6 +48,7 @@ export class HomeComponent implements OnInit {
   private reservationService = inject(ReservationService);
   private router = inject(Router);
   private sanitizer = inject(DomSanitizer);
+  private modalsService = inject(ModalsService);
 
   // Signals
   classes = signal<Site[]>([]);
@@ -86,22 +93,41 @@ export class HomeComponent implements OnInit {
 
   /** Maneja la reserva de una nueva clase */
   reserveClass(site: Site, information: Class) {
-    this.reservationService.addReservation({
-      id: information.id,
-      name: information.name,
-      date: information.schedule,
-      location: site.name,
-      address: site.address,
-      mapUrl: `https://www.google.com/maps?q=${site.lat},${site.lng}&hl=es;z=14&output=embed`,
-    });
-
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
+      this.modalsService.openSnackbar(
+        SnackbarType.INFORMATION,
+        'Debes iniciar sesión para reservar',
+      );
       return;
     }
 
-    alert(`Clase ${information.name} reservada ✅`);
-    this.router.navigate(['/reservations']);
+    const { id, name, schedule } = information;
+    const { address, lat, lng } = site;
+
+    const dialogRef = this.modalsService.openConfirmationModal({
+      type: ModalType.SUCCESS,
+      title: 'Confirmar reserva',
+      body: `¿Deseas confirmar tu reserva para la clase seleccionada?
+  Recuerda que esta acción garantiza tu cupo en la sesión y no se podrá modificar una vez confirmada. ${name} ${schedule} ${site.name} ${address}`,
+      buttonLeft: 'Cancelar',
+      buttonRight: 'Confirmar',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== 'right') return;
+
+      this.reservationService.addReservation({
+        id: id,
+        name: name,
+        date: schedule,
+        location: site.name,
+        address: address,
+        mapUrl: `https://www.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed`,
+      });
+
+      this.modalsService.openSnackbar(SnackbarType.SUCCESS, 'Reserva exitosa');
+    });
   }
 
   /** Sana la URL maps */

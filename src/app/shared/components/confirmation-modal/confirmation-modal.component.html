@@ -6,14 +6,11 @@
   </mat-dialog-content>
 
   <mat-dialog-actions class="modal-actions">
-    <button
-      mat-dialog-close="left"
-      class="button-transparent-primary button-cancel"
-    >
+    <button mat-button mat-dialog-close="left">
       {{ data.buttonLeft }}
     </button>
 
-    <button mat-dialog-close="right" [ngClass]="'button-tertiary'">
+    <button mat-flat-button mat-dialog-close="right">
       {{ data.buttonRight }}
     </button>
   </mat-dialog-actions>
