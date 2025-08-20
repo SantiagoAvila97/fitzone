@@ -36,6 +36,20 @@ mat-toolbar {
     button {
       color: $color-white;
       font-weight: 400;
+
+      font-size: $font-14;
+
+      @include for-tablet {
+        font-size: $font-14 * $font-reduce-10;
+      }
+
+      @include for-phone {
+        font-size: $font-14 * $font-reduce-20;
+      }
+
+      &:hover {
+        scale: 1.02;
+      }
     }
   }
 

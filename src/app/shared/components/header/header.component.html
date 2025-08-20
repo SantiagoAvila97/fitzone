@@ -18,6 +18,7 @@
 
   <nav class="desktop-menu">
     <button mat-button routerLink="/">Inicio</button>
+    <button mat-button routerLink="/memberships">Membresias</button>
 
     @if (isAuthenticated()) {
       <button mat-button routerLink="/reservations">Mis Reservas</button>
@@ -31,6 +32,7 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="over" class="mobile-menu">
     <button mat-button routerLink="/" (click)="sidenav.close()">Inicio</button>
+    <button mat-button routerLink="/memberships">Membresias</button>
 
     @if (isAuthenticated()) {
       <button mat-button routerLink="/reservations">Mis Reservas</button>
