@@ -68,7 +68,7 @@ mat-toolbar {
   @include for-phone {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding: 1rem;
   }
 
   a,

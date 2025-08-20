@@ -17,32 +17,28 @@
   <span class="spacer"></span>
 
   <nav class="desktop-menu">
-    <a mat-button routerLink="/home">Inicio</a>
-    <a mat-button routerLink="/reservations">Mis Reservas</a>
+    <button mat-button routerLink="/home">Inicio</button>
 
-    <ng-container *ngIf="authService.currentUser(); else loginLink">
+    @if (isAuthenticated()) {
+      <button mat-button routerLink="/reservations">Mis Reservas</button>
       <button mat-button (click)="logout()">Salir</button>
-    </ng-container>
-
-    <ng-template #loginLink>
-      <a mat-button routerLink="/login">Login</a>
-    </ng-template>
+    } @else {
+      <button mat-button routerLink="/login">Login</button>
+    }
   </nav>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="over" class="mobile-menu">
-    <a mat-list-item routerLink="/home" (click)="sidenav.close()">Inicio</a>
-    <a mat-list-item routerLink="/reservations" (click)="sidenav.close()"
-      >Mis Reservas</a
-    >
+    <button mat-button routerLink="/home" (click)="sidenav.close()">
+      Inicio
+    </button>
 
-    <ng-container *ngIf="authService.currentUser(); else mobileLoginLink">
-      <button mat-list-item (click)="logout(); sidenav.close()">Salir</button>
-    </ng-container>
-
-    <ng-template #mobileLoginLink>
-      <a mat-list-item routerLink="/login" (click)="sidenav.close()">Login</a>
-    </ng-template>
+    @if (isAuthenticated()) {
+      <button mat-button routerLink="/reservations">Mis Reservas</button>
+      <button mat-button (click)="logout()">Salir</button>
+    } @else {
+      <button mat-button routerLink="/login">Login</button>
+    }
   </mat-sidenav>
 </mat-sidenav-container>

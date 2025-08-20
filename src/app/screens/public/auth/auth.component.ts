@@ -44,9 +44,7 @@ export class AuthComponent {
 
   private sub?: Subscription;
 
-  /**
-   * Se ejecuta al enviar el formulario
-   */
+  /** Se ejecuta al enviar el formulario */
   onSubmit() {
     if (this.form.invalid) return;
 
@@ -67,9 +65,7 @@ export class AuthComponent {
     });
   }
 
-  /**
-   * NgOnDestroy: liberamos la subscripción
-   */
+  /** NgOnDestroy: liberamos la subscripción */
   ngOnDestroy() {
     this.sub?.unsubscribe();
   }

@@ -1,10 +1,6 @@
 // core/services/auth.service.ts
 import { Injectable, signal } from '@angular/core';
 import { Observable, of, throwError, delay } from 'rxjs';
-export interface UserSession {
-  username: string; // nombre de la clase
-  time: Date; // fecha/hora de la reserva
-}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -17,9 +13,7 @@ export class AuthService {
     password: 'pruebatecnisasantiagoavila',
   };
 
-  /**
-   * Método para iniciar sesión
-   */
+  /** Método para iniciar sesión */
   login(username: string, password: string): Observable<{ username: string }> {
     if (
       username === this.mockUser.username &&
@@ -32,16 +26,12 @@ export class AuthService {
     return throwError(() => new Error('Credenciales inválidas'));
   }
 
-  /**
-   * Método para cerrar sesión
-   */
+  /** Método para cerrar sesión */
   logout() {
     this.currentUser.set(null);
   }
 
-  /**
-   * Retorna si el usuario está autenticado
-   */
+  /** Retorna si el usuario está autenticado */
   isAuthenticated(): boolean {
     return this.currentUser() !== null;
   }

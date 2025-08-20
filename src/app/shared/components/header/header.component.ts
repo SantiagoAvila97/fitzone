@@ -17,7 +17,6 @@ import { AuthService } from '@core//services/auth.service';
     MatIcon,
     MatSidenavContainer,
     MatSidenav,
-    CommonModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
