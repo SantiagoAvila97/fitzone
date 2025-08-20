@@ -4,11 +4,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ReservationService } from '@core//services/reservation.service';
 import { HeaderComponent } from '@shared/components/header/header.component';
+import { FooterComponent } from '@shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-reservation-list',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, HeaderComponent],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    HeaderComponent,
+    FooterComponent,
+  ],
   templateUrl: './reservation-list.component.html',
   styleUrls: ['./reservation-list.component.scss'],
 })

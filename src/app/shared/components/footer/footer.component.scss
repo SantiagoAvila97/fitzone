@@ -1,0 +1,124 @@
+@use "@shared/styles/_media.scss" as *;
+@use "@shared/styles/_colors.scss" as *;
+@use "@shared/styles/_sizetexts.scss" as *;
+
+.footer {
+  background-color: $color-primary;
+  padding: 3rem 2rem;
+  margin-top: 2rem;
+
+  @include for-tablet {
+    padding: 2rem 2rem;
+  }
+
+  @include for-phone {
+    padding: 2rem 2rem;
+  }
+
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: start;
+    margin: 0 auto;
+    padding-inline: 3%;
+
+    @include for-tablet {
+    }
+
+    @include for-phone {
+      flex-wrap: wrap;
+    }
+  }
+
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+
+    h4 {
+      font-weight: 600;
+      color: $color-white;
+      margin-bottom: 1rem;
+      margin-top: 1rem;
+      font-size: $font-20;
+
+      @include for-tablet {
+        font-size: $font-20 * $font-reduce-10;
+      }
+
+      @include for-phone {
+        font-size: $font-20 * $font-reduce-20;
+      }
+    }
+
+    p,
+    a {
+      color: $color-white;
+      text-decoration: none;
+      line-height: 1.5;
+      margin-block: 0.5rem;
+      font-size: $font-14;
+
+      @include for-tablet {
+        font-size: $font-14 * $font-reduce-10;
+      }
+
+      @include for-phone {
+        font-size: $font-14 * $font-reduce-20;
+      }
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: $color-white;
+
+      margin-top: 1rem;
+    }
+  }
+
+  .social {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    @include for-phone {
+      min-width: 100%;
+      align-items: center;
+    }
+
+    h4 {
+      margin: 0;
+      font-size: $font-14;
+
+      @include for-tablet {
+        font-size: $font-14 * $font-reduce-10;
+      }
+
+      @include for-phone {
+        font-size: $font-14 * $font-reduce-20;
+      }
+    }
+
+    .footer-logo {
+      height: 200px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  @include for-phone {
+    text-align: center;
+
+    .footer-logo {
+      margin: 0 auto;
+    }
+
+    .footer-container {
+      gap: 1.5rem;
+    }
+  }
+}

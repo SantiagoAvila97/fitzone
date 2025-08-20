@@ -24,4 +24,11 @@ export const routes: Routes = [
       ).then((m) => m.ReservationListComponent),
     canActivate: [authGuard],
   },
+  {
+    path: 'memberships',
+    loadComponent: () =>
+      import('./screens/public/memberships/memberships.component').then(
+        (m) => m.MembershipsComponent,
+      ),
+  },
 ];

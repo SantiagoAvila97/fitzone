@@ -23,7 +23,6 @@ import { HeaderComponent } from '@shared/components/header/header.component';
     MatIcon,
     MatProgressSpinner,
     HeaderComponent,
-    HeaderComponent,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',

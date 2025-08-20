@@ -18,45 +18,64 @@
     </mat-form-field>
   </div>
 
+  <div class="filter">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Filtrar por sedes</mat-label>
+      <mat-select
+        multiple
+        [value]="selectedSites()"
+        (valueChange)="selectedSites.set($event)"
+      >
+        <mat-option *ngFor="let name of getAllSites()" [value]="name">
+          {{ name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div class="classes-grid">
     @for (branch of filteredClasses(); track branch.name) {
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>{{ branch.name }}</mat-card-title>
-          <mat-card-subtitle>
-            Ubicación: {{ branch.address }}
-          </mat-card-subtitle>
-          <mat-card-subtitle>
-            Horario: {{ branch.schedule }}
-          </mat-card-subtitle>
-        </mat-card-header>
+      @if (branch.classes.length > 0) {
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ branch.name }}</mat-card-title>
+            <mat-card-subtitle>
+              Ubicación: {{ branch.address }}
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+              Horario: {{ branch.schedule }}
+            </mat-card-subtitle>
+          </mat-card-header>
 
-        <iframe
-          width="100%"
-          height="250"
-          style="border-radius: 1rem; border: 0"
-          loading="lazy"
-          allowfullscreen
-          referrerpolicy="no-referrer-when-downgrade"
-          [src]="getMapUrl(branch.lat, branch.lng)"
-        >
-        </iframe>
+          <iframe
+            width="100%"
+            height="250"
+            style="border-radius: 1rem; border: 0"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            [src]="getMapUrl(branch.lat, branch.lng)"
+          >
+          </iframe>
 
-        <mat-card-content>
-          <p>Clases disponibles:</p>
-          <ul>
-            @for (c of branch.classes; track c.id) {
-              <li (click)="reserveClass(branch, c)">
-                <button mat-icon-button color="primary">+</button>
-                <div>
-                  <p>{{ c.name }}</p>
-                  — {{ c.schedule }}
-                </div>
-              </li>
-            }
-          </ul>
-        </mat-card-content>
-      </mat-card>
+          <mat-card-content>
+            <p>Clases disponibles:</p>
+            <ul>
+              @for (c of branch.classes; track c.id) {
+                <li (click)="reserveClass(branch, c)">
+                  <button mat-icon-button color="primary">+</button>
+                  <div>
+                    <p>{{ c.name }}</p>
+                    — {{ c.schedule }}
+                  </div>
+                </li>
+              }
+            </ul>
+          </mat-card-content>
+        </mat-card>
+      }
     }
   </div>
 </div>
+
+<app-footer />
