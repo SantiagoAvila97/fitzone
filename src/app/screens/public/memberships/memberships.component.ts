@@ -15,6 +15,7 @@ import {
   MembershipsService,
 } from '@core//services/memberships.service';
 import { HeaderComponent } from '@shared/components/header/header.component';
+import { FooterComponent } from '@shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-memberships',
@@ -30,6 +31,7 @@ import { HeaderComponent } from '@shared/components/header/header.component';
     MatButtonModule,
     MatIcon,
     CommonModule,
+    FooterComponent,
   ],
   templateUrl: './memberships.component.html',
   styleUrls: ['./memberships.component.scss'],

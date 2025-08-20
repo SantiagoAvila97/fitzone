@@ -15,6 +15,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AuthService } from '@core//services/auth.service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
+import { FooterComponent } from '@shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
     MatLabel,
     MatSelect,
     MatOption,
+    FooterComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
