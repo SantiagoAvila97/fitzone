@@ -9,13 +9,11 @@ export class AuthService {
 
   // Usuario mockeado
   private readonly mockUser = {
-    username: 'fitzone',
+    username: 'Santiago Avila',
     password: 'pruebatecnisasantiagoavila',
   };
 
-  /**
-   * Método para iniciar sesión
-   */
+  /** Método para iniciar sesión */
   login(username: string, password: string): Observable<{ username: string }> {
     if (
       username === this.mockUser.username &&
@@ -24,19 +22,16 @@ export class AuthService {
       this.currentUser.set({ username });
       return of({ username }).pipe(delay(1000)); // simulamos delay de API
     }
+
     return throwError(() => new Error('Credenciales inválidas'));
   }
 
-  /**
-   * Método para cerrar sesión
-   */
+  /** Método para cerrar sesión */
   logout() {
     this.currentUser.set(null);
   }
 
-  /**
-   * Retorna si el usuario está autenticado
-   */
+  /** Retorna si el usuario está autenticado */
   isAuthenticated(): boolean {
     return this.currentUser() !== null;
   }

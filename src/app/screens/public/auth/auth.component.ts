@@ -9,6 +9,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { HeaderComponent } from '@shared/components/header/header.component';
 
 @Component({
   selector: 'app-auth',
@@ -21,6 +22,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatIcon,
     MatProgressSpinner,
+    HeaderComponent,
+    HeaderComponent,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
@@ -44,9 +47,7 @@ export class AuthComponent {
 
   private sub?: Subscription;
 
-  /**
-   * Se ejecuta al enviar el formulario
-   */
+  /** Se ejecuta al enviar el formulario */
   onSubmit() {
     if (this.form.invalid) return;
 
@@ -57,7 +58,7 @@ export class AuthComponent {
     this.sub = this.authService.login(username!, password!).subscribe({
       next: () => {
         this.loading.set(false);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.loading.set(false);
@@ -67,9 +68,7 @@ export class AuthComponent {
     });
   }
 
-  /**
-   * NgOnDestroy: liberamos la subscripción
-   */
+  /** NgOnDestroy: liberamos la subscripción */
   ngOnDestroy() {
     this.sub?.unsubscribe();
   }

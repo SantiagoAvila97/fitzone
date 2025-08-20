@@ -17,7 +17,6 @@ import { AuthService } from '@core//services/auth.service';
     MatIcon,
     MatSidenavContainer,
     MatSidenav,
-    CommonModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -29,5 +28,13 @@ export class HeaderComponent {
   logout() {
     this.authService.logout();
     this.router.navigateByUrl('/');
+  }
+
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+  get username(): string | null {
+    return this.authService.currentUser()?.username || null;
   }
 }
