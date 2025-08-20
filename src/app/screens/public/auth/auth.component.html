@@ -1,1 +1,36 @@
-<p>auth works!</p>
+<div class="auth-container">
+  <div class="auth-left">
+    <div class="image-stack">
+      <img src="branch.png" alt="branch" />
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <h1 class="logo">FitZone</h1>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="username" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="btn-login"
+        [disabled]="loading()"
+      >
+        {{ loading() ? "Ingresando..." : "Entrar" }}
+      </button>
+    </form>
+  </div>
+</div>
