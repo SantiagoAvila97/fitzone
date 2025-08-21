@@ -16,6 +16,13 @@ import { AuthService } from '@core//services/auth.service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { FooterComponent } from '@shared/components/footer/footer.component';
+import {
+  ModalsService,
+  ModalType,
+  SnackbarType,
+} from '@shared/services/modals.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BannerComponent } from '@shared/components/banner/banner.component';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +38,7 @@ import { FooterComponent } from '@shared/components/footer/footer.component';
     MatSelect,
     MatOption,
     FooterComponent,
+    BannerComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -42,6 +50,7 @@ export class HomeComponent implements OnInit {
   private reservationService = inject(ReservationService);
   private router = inject(Router);
   private sanitizer = inject(DomSanitizer);
+  private modalsService = inject(ModalsService);
 
   // Signals
   classes = signal<Site[]>([]);
@@ -50,15 +59,22 @@ export class HomeComponent implements OnInit {
 
   /** Inicilizador */
   ngOnInit() {
-    this.classes.set(this.classService.getClasses());
+    this.classes.set(
+      this.classService.getClasses().map((site) => ({
+        ...site,
+        mapUrl: this.sanitizer.bypassSecurityTrustResourceUrl(
+          `https://www.google.com/maps?q=${site.lat},${site.lng}&hl=es;z=14&output=embed`,
+        ),
+      })),
+    );
   }
 
   /** Filtrar clases */
   filteredClasses = computed(() => {
-    const names = this.selectedNames(); // filtro por clase
-    const sites = this.selectedSites(); // filtro por sede
-    const reserved = this.reservationService.reservations(); // clases ya reservadas
-    const isAuth = this.authService.isAuthenticated(); // booleano
+    const names = this.selectedNames();
+    const sites = this.selectedSites();
+    const reserved = this.reservationService.reservations();
+    const isAuth = this.authService.isAuthenticated();
 
     return this.classes().map((site) => ({
       ...site,
@@ -86,28 +102,41 @@ export class HomeComponent implements OnInit {
 
   /** Maneja la reserva de una nueva clase */
   reserveClass(site: Site, information: Class) {
-    this.reservationService.addReservation({
-      id: information.id,
-      name: information.name,
-      date: information.schedule,
-      location: site.name,
-      address: site.address,
-      mapUrl: `https://www.google.com/maps?q=${site.lat},${site.lng}&hl=es;z=14&output=embed`,
-    });
-
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
+      this.modalsService.openSnackbar(
+        SnackbarType.INFORMATION,
+        'Debes iniciar sesión para reservar',
+      );
       return;
     }
 
-    alert(`Clase ${information.name} reservada ✅`);
-    this.router.navigate(['/reservations']);
-  }
+    const { id, name, schedule } = information;
+    const { address, lat, lng } = site;
 
-  /** Sana la URL maps */
-  getMapUrl(lat: number, lng: number): SafeResourceUrl {
-    const url = `https://www.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    const dialogRef = this.modalsService.openConfirmationModal({
+      type: ModalType.SUCCESS,
+      title: 'Confirmar reserva',
+      body: `¿Deseas confirmar tu reserva para la clase seleccionada?
+  Recuerda que esta acción garantiza tu cupo en la sesión y no se podrá modificar una vez confirmada. ${name} ${schedule} ${site.name} ${address}`,
+      buttonLeft: 'Cancelar',
+      buttonRight: 'Confirmar',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== 'right') return;
+
+      this.reservationService.addReservation({
+        id: id,
+        name: name,
+        date: schedule,
+        location: site.name,
+        address: address,
+        mapUrl: `https://www.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed`,
+      });
+
+      this.modalsService.openSnackbar(SnackbarType.SUCCESS, 'Reserva exitosa');
+    });
   }
 
   /** Obtener nombres únicos de todas las clases */
@@ -117,19 +146,10 @@ export class HomeComponent implements OnInit {
     );
     return [...new Set(names)];
   }
+
   /** Obtener todas las sedes */
   getAllSites(): string[] {
     const sites = this.classes().map((site) => site.name);
     return [...new Set(sites)];
-  }
-
-  /** Obtener turnos de horarios (mañana / tarde) */
-  getAllShifts(): string[] {
-    const shifts = this.classes().flatMap((site) =>
-      site.classes.map((c) =>
-        c.schedule.toLowerCase().includes('am') ? 'mañana' : 'tarde',
-      ),
-    );
-    return [...new Set(shifts)];
   }
 }

@@ -1,23 +1,25 @@
-@use "variables" as *;
+@use "@shared/styles/_media.scss" as *;
+@use "@shared/styles/_colors.scss" as *;
+@use "@shared/styles/_sizetexts.scss" as *;
 
 .modal-container {
   padding: 20px;
 
   &.success {
     .modal-title {
-      color: $success-color;
+      color: $color-success;
     }
   }
 
   &.error {
     .modal-title {
-      color: $error-color;
+      color: $color-error;
     }
   }
 
   &.default {
     .modal-title {
-      color: $primary-color;
+      color: $color-primary;
     }
   }
 }
@@ -28,5 +30,5 @@
 }
 
 .button-cancel {
-  color: $tertiary-color;
+  color: $color-primary;
 }

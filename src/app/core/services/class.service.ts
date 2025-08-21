@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 export interface Site {
   name: string;
@@ -7,6 +8,7 @@ export interface Site {
   lat: number;
   lng: number;
   classes: Class[];
+  mapUrl?: SafeResourceUrl;
 }
 
 export interface Class {
