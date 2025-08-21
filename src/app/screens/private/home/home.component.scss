@@ -1,6 +1,6 @@
-@use "@shared/styles/_media.scss" as *;
-@use "@shared/styles/_colors.scss" as *;
-@use "@shared/styles/_sizetexts.scss" as *;
+@use "../../../shared/styles/media" as *;
+@use "../../../shared/styles/colors" as *;
+@use "../../../shared/styles/sizetexts" as *;
 
 .home-container {
   max-width: 1200px;
