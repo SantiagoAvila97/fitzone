@@ -21,7 +21,7 @@
     <button mat-button routerLink="/memberships">Membresias</button>
 
     @if (isAuthenticated()) {
-      <button mat-button routerLink="/reservations">Mis Reservas</button>
+      <button mat-button routerLink="/reservations">Mis reservas</button>
       <button mat-button (click)="logout()">Cerrar sesión</button>
     } @else {
       <button mat-button routerLink="/login">Iniciar sesión</button>
