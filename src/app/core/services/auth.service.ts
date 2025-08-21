@@ -13,8 +13,8 @@ export class AuthService {
 
   // Usuario mockeado
   private readonly mockUser = {
-    username: 'Santiago Avila',
-    password: 'pruebatecnisasantiagoavila',
+    username: 'nntdata',
+    password: 'nntdata',
   };
 
   /** Método para iniciar sesión */
@@ -23,7 +23,7 @@ export class AuthService {
       username === this.mockUser.username &&
       password === this.mockUser.password
     ) {
-      this.currentUser.set({ username });
+      this.currentUser.set({ username: 'Santiago Avila' });
       return of({ username }).pipe(delay(1000)); // simulamos delay de API
     }
 
