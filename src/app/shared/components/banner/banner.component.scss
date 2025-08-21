@@ -35,22 +35,15 @@
 
 @include for-phone {
   .banner {
-    padding: 10px;
-    border-radius: 6px;
-
-    p {
-      font-size: 0.9rem;
-    }
+    max-width: 90%;
+    margin: 0 auto;
   }
 }
 
 @include for-tablet {
   .banner {
-    padding: 14px;
-
-    p {
-      font-size: 1.1rem;
-    }
+    max-width: 90%;
+    margin: 0 auto;
   }
 }
 
@@ -58,9 +51,5 @@
   .banner {
     max-width: 800px;
     margin: 0 auto;
-
-    p {
-      font-size: 1.2rem;
-    }
   }
 }
