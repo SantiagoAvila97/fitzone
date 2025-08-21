@@ -5,7 +5,7 @@
 h2 {
   max-width: 1100px;
   margin: 0 auto;
-  margin-top: 2rem;
+  margin-top: 5rem;
   margin-bottom: 0rem;
   font-weight: 500;
   padding-left: 30px;
@@ -19,6 +19,7 @@ h2 {
   max-width: 1080px;
   margin: 0 auto;
   margin-top: 1rem;
+  margin-bottom: 8rem;
 }
 
 .membership-card {
@@ -78,7 +79,7 @@ h2 {
   }
 
   button {
-    margin-block: 0.5 rem;
+    margin-block: 0.5rem;
   }
 }
 
@@ -131,4 +132,20 @@ ul {
 
 mat-icon {
   font-size: 18px;
+}
+
+.toggle-benefits {
+  text-transform: none;
+  align-self: flex-start;
+  font-size: $font-14;
+  margin-left: 0.5rem;
+  margin-top: 1.5rem !important;
+
+  @include for-tablet {
+    font-size: $font-14 * $font-reduce-10;
+  }
+
+  @include for-phone {
+    font-size: $font-14 * $font-reduce-20;
+  }
 }

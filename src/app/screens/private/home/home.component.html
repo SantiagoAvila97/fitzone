@@ -1,5 +1,7 @@
 <app-header />
 
+<app-banner />
+
 <div class="home-container">
   <h2 class="section-title">Explora nuestras clases</h2>
 
@@ -54,7 +56,7 @@
             loading="lazy"
             allowfullscreen
             referrerpolicy="no-referrer-when-downgrade"
-            [src]="getMapUrl(branch.lat, branch.lng)"
+            [src]="branch.mapUrl"
           >
           </iframe>
 

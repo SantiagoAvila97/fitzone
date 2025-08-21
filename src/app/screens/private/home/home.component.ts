@@ -22,6 +22,7 @@ import {
   SnackbarType,
 } from '@shared/services/modals.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BannerComponent } from '@shared/components/banner/banner.component';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatSelect,
     MatOption,
     FooterComponent,
+    BannerComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -57,15 +59,22 @@ export class HomeComponent implements OnInit {
 
   /** Inicilizador */
   ngOnInit() {
-    this.classes.set(this.classService.getClasses());
+    this.classes.set(
+      this.classService.getClasses().map((site) => ({
+        ...site,
+        mapUrl: this.sanitizer.bypassSecurityTrustResourceUrl(
+          `https://www.google.com/maps?q=${site.lat},${site.lng}&hl=es;z=14&output=embed`,
+        ),
+      })),
+    );
   }
 
   /** Filtrar clases */
   filteredClasses = computed(() => {
-    const names = this.selectedNames(); // filtro por clase
-    const sites = this.selectedSites(); // filtro por sede
-    const reserved = this.reservationService.reservations(); // clases ya reservadas
-    const isAuth = this.authService.isAuthenticated(); // booleano
+    const names = this.selectedNames();
+    const sites = this.selectedSites();
+    const reserved = this.reservationService.reservations();
+    const isAuth = this.authService.isAuthenticated();
 
     return this.classes().map((site) => ({
       ...site,
@@ -130,12 +139,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  /** Sana la URL maps */
-  getMapUrl(lat: number, lng: number): SafeResourceUrl {
-    const url = `https://www.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-
   /** Obtener nombres únicos de todas las clases */
   getAllClassNames(): string[] {
     const names = this.classes().flatMap((site) =>
@@ -143,19 +146,10 @@ export class HomeComponent implements OnInit {
     );
     return [...new Set(names)];
   }
+
   /** Obtener todas las sedes */
   getAllSites(): string[] {
     const sites = this.classes().map((site) => site.name);
     return [...new Set(sites)];
-  }
-
-  /** Obtener turnos de horarios (mañana / tarde) */
-  getAllShifts(): string[] {
-    const shifts = this.classes().flatMap((site) =>
-      site.classes.map((c) =>
-        c.schedule.toLowerCase().includes('am') ? 'mañana' : 'tarde',
-      ),
-    );
-    return [...new Set(shifts)];
   }
 }

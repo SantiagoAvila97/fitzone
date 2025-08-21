@@ -1,52 +1,67 @@
 <app-header />
 
+<app-banner />
+
 <h2>Membresias</h2>
 <div class="memberships-container">
   @for (m of memberships(); track m.id) {
-    <mat-card class="membership-card">
-      <mat-card-header>
-        <mat-card-title>{{ m.name }}</mat-card-title>
-      </mat-card-header>
+    <div (click)="buyMembership(m)">
+      <mat-card class="membership-card">
+        <mat-card-header>
+          <mat-card-title>{{ m.name }}</mat-card-title>
+        </mat-card-header>
 
-      <mat-card-content>
-        <p class="price">
-          {{ m.price | currency: "COP" : "symbol" : "1.0-0" }}/mes
-        </p>
-        <p>
-          Inscripción
-          {{ m.inscription | currency: "COP" : "symbol" : "1.0-0" }}
-        </p>
-        <p>
-          Servicios Complementarios
-          {{ m.extra | currency: "COP" : "symbol" : "1.0-0" }}/año
-        </p>
+        <mat-card-content>
+          <p class="price">
+            {{ m.price | currency: "COP" : "symbol" : "1.0-0" }}/mes
+          </p>
+          <p>
+            Inscripción
+            {{ m.inscription | currency: "COP" : "symbol" : "1.0-0" }}
+          </p>
+          <p>
+            Servicios Complementarios
+            {{ m.extra | currency: "COP" : "symbol" : "1.0-0" }}/año
+          </p>
 
-        @if (m.fidelity) {
-          <p>12 meses de fidelidad</p>
-        } @else {
-          <p>Sin fidelidad</p>
-        }
-      </mat-card-content>
-
-      <div class="plans">
-        <ul>
-          @for (b of m.benefits; track b.label) {
-            <li [ngClass]="{ disabled: !b.included }">
-              <mat-icon
-                [ngClass]="b.included ? 'icon-included' : 'icon-excluded'"
-              >
-                {{ b.included ? "check_circle" : "cancel" }}
-              </mat-icon>
-              <span>{{ b.label }}</span>
-            </li>
+          @if (m.fidelity) {
+            <p>12 meses de fidelidad</p>
+          } @else {
+            <p>Sin fidelidad</p>
           }
-        </ul>
-      </div>
+        </mat-card-content>
 
-      <mat-card-actions>
-        <button mat-raised-button color="warn">Elegir plan</button>
-      </mat-card-actions>
-    </mat-card>
+        <button
+          mat-button
+          color="primary"
+          (click)="toggleBenefits(m.id); $event.stopPropagation()"
+          class="toggle-benefits"
+        >
+          {{ isExpanded(m.id) ? "Ocultar beneficios" : "Ver beneficios" }}
+        </button>
+
+        @if (isExpanded(m.id)) {
+          <div class="plans">
+            <ul>
+              @for (b of m.benefits; track b.label) {
+                <li [ngClass]="{ disabled: !b.included }">
+                  <mat-icon
+                    [ngClass]="b.included ? 'icon-included' : 'icon-excluded'"
+                  >
+                    {{ b.included ? "check_circle" : "cancel" }}
+                  </mat-icon>
+                  <span>{{ b.label }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+        <mat-card-actions>
+          <button mat-raised-button color="warn">Elegir plan</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   }
 </div>
 

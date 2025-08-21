@@ -1,0 +1,66 @@
+@use "@shared/styles/_media.scss" as *;
+@use "@shared/styles/_colors.scss" as *;
+@use "@shared/styles/_sizetexts.scss" as *;
+
+.banner {
+  background: gold;
+  text-align: center;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.5s ease-in-out;
+  max-width: 100%;
+  margin-top: 3rem !important;
+  margin-bottom: 1rem !important;
+
+  p {
+    margin: 0;
+    font-size: $font-20;
+
+    @include for-tablet {
+      font-size: $font-20 * $font-reduce-10;
+    }
+
+    @include for-phone {
+      font-size: $font-20 * $font-reduce-20;
+    }
+    font-weight: 300;
+  }
+
+  &.fade {
+    opacity: 0;
+  }
+}
+
+@include for-phone {
+  .banner {
+    padding: 10px;
+    border-radius: 6px;
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@include for-tablet {
+  .banner {
+    padding: 14px;
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+@include for-desktop {
+  .banner {
+    max-width: 800px;
+    margin: 0 auto;
+
+    p {
+      font-size: 1.2rem;
+    }
+  }
+}

@@ -1,9 +1,13 @@
 // core/services/auth.service.ts
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { ModalsService, SnackbarType } from '@shared/services/modals.service';
 import { Observable, of, throwError, delay } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  // Injetcs
+  private modalsService = inject(ModalsService);
+
   // Signal para guardar el estado del usuario autenticado
   currentUser = signal<{ username: string } | null>(null);
 
@@ -29,6 +33,7 @@ export class AuthService {
   /** Método para cerrar sesión */
   logout() {
     this.currentUser.set(null);
+    this.modalsService.openSnackbar(SnackbarType.INFORMATION, 'Sesión cerrada');
   }
 
   /** Retorna si el usuario está autenticado */

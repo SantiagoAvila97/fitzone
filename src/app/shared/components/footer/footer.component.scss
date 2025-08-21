@@ -23,9 +23,6 @@
     margin: 0 auto;
     padding-inline: 3%;
 
-    @include for-tablet {
-    }
-
     @include for-phone {
       flex-wrap: wrap;
     }
@@ -107,18 +104,6 @@
     .footer-logo {
       height: 200px;
       margin-bottom: 1rem;
-    }
-  }
-
-  @include for-phone {
-    text-align: center;
-
-    .footer-logo {
-      margin: 0 auto;
-    }
-
-    .footer-container {
-      gap: 1.5rem;
     }
   }
 }
