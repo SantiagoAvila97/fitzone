@@ -13,8 +13,8 @@ export class AuthService {
 
   // Usuario mockeado
   private readonly mockUser = {
-    username: 'nntdata',
-    password: 'nntdata',
+    username: 'nttdata',
+    password: 'nttdata',
   };
 
   /** Método para iniciar sesión */
