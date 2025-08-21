@@ -1,6 +1,6 @@
-@use "@shared/styles/_media.scss" as *;
-@use "@shared/styles/_colors.scss" as *;
-@use "@shared/styles/_sizetexts.scss" as *;
+@use "../../../shared/styles/media" as *;
+@use "../../../shared/styles/colors" as *;
+@use "../../../shared/styles/sizetexts" as *;
 
 .home-container {
   max-width: 1200px;
@@ -116,5 +116,18 @@ mat-card-header {
     @include for-phone {
       font-size: $font-14 * $font-reduce-20;
     }
+  }
+}
+
+.home-container {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
