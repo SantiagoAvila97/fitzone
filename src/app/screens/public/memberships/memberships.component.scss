@@ -1,6 +1,6 @@
-@use "@shared/styles/_media.scss" as *;
-@use "@shared/styles/_colors.scss" as *;
-@use "@shared/styles/_sizetexts.scss" as *;
+@use "../../../shared/styles/media" as *;
+@use "../../../shared/styles/colors" as *;
+@use "../../../shared/styles/sizetexts" as *;
 
 h2 {
   max-width: 1100px;
@@ -147,5 +147,24 @@ mat-icon {
 
   @include for-phone {
     font-size: $font-14 * $font-reduce-20;
+  }
+}
+
+h2 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.memberships-container {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
