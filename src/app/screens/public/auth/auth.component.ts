@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { HeaderComponent } from '@shared/components/header/header.component';
+import { ModalsService, SnackbarType } from '@shared/services/modals.service';
 
 @Component({
   selector: 'app-auth',
@@ -32,6 +33,7 @@ export class AuthComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private modalsService = inject(ModalsService);
 
   // Signals
   loading = signal(false);
@@ -58,6 +60,10 @@ export class AuthComponent {
       next: () => {
         this.loading.set(false);
         this.router.navigate(['/']);
+        this.modalsService.openSnackbar(
+          SnackbarType.SUCCESS,
+          'Sesión iniciada',
+        );
       },
       error: (err) => {
         this.loading.set(false);

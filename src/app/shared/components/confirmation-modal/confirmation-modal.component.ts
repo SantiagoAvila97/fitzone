@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
     CommonModule,
     MatDialogClose,
+    MatButtonModule,
   ],
   templateUrl: './confirmation-modal.component.html',
   styleUrl: './confirmation-modal.component.scss',
